@@ -21,6 +21,7 @@ dotenv.config();
 const presetsVersion = require('../package.json').devDependencies['@openstreetmap/id-tagging-schema'];
 /* eslint-disable no-process-env */
 const presetsUrl = (process.env.ID_PRESETS_CDN_URL || 'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@{presets_version}').replace('{presets_version}', presetsVersion);
+const presetsCustomUrl = process.env.ID_PRESETS_CUSTOM_URL;//TODO
 /* eslint-enable no-process-env */
 
 let _currBuild = null;
@@ -99,14 +100,17 @@ function buildData() {
     minifyJSON('data/territory_languages.json', 'dist/data/territory_languages.min.json'),
     Promise.all([
       // Fetch the icons that are needed by the expected tagging schema version
-      fetchOrRequire(`${presetsUrl}/dist/presets.min.json`),
-      fetchOrRequire(`${presetsUrl}/dist/preset_categories.min.json`),
-      fetchOrRequire(`${presetsUrl}/dist/fields.min.json`),
+      // fetchOrRequire(`${presetsUrl}/dist/presets.min.json`),
+      fetchOrRequire(`${presetsCustomUrl}presets.json`),//TODO
+      // fetchOrRequire(`${presetsUrl}/dist/preset_categories.min.json`),
+      fetchOrRequire(`${presetsCustomUrl}preset_categories.json`),//TODO
+      // fetchOrRequire(`${presetsUrl}/dist/fields.min.json`),
+      fetchOrRequire(`${presetsCustomUrl}fields.json`),//TODO
       // WARNING: we fetch the bleeding edge data too to make sure we're always hosting the
       // latest icons, but note that the format could break at any time
-      fetch('https://raw.githubusercontent.com/openstreetmap/id-tagging-schema/main/dist/presets.min.json'),
-      fetch('https://raw.githubusercontent.com/openstreetmap/id-tagging-schema/main/dist/preset_categories.min.json'),
-      fetch('https://raw.githubusercontent.com/openstreetmap/id-tagging-schema/main/dist/fields.min.json')
+      // fetch('https://raw.githubusercontent.com/openstreetmap/id-tagging-schema/main/dist/presets.min.json'),
+      // fetch('https://raw.githubusercontent.com/openstreetmap/id-tagging-schema/main/dist/preset_categories.min.json'),
+      // fetch('https://raw.githubusercontent.com/openstreetmap/id-tagging-schema/main/dist/fields.min.json')
     ])
     .then(responses => Promise.all(responses.map(response => response.json())))
     .then((results) => {

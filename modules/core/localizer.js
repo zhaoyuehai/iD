@@ -4,7 +4,8 @@ import { fileFetcher } from './file_fetcher';
 import { utilDetect } from '../util/detect';
 import { utilStringQs } from '../util';
 import { utilArrayUniq } from '../util/array';
-import { presetsCdnUrl } from '../../config/id.js';
+// import { presetsCdnUrl } from '../../config/id.js';
+import { presetsCustomUrl } from '../../config/id.js';//TODO
 
 let _mainLocalizer = coreLocalizer(); // singleton
 let _t = _mainLocalizer.t;
@@ -90,7 +91,8 @@ export function coreLocalizer() {
 
         const localeDirs = {
             general: 'locales',
-            tagging: presetsCdnUrl + 'dist/translations'
+            // tagging: presetsCdnUrl + 'dist/translations'
+            tagging: presetsCustomUrl + 'translations'//TODO
         };
 
         let fileMap = fileFetcher.fileMap();

@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 
+const presetsCustomUrl = ENV__ID_PRESETS_CUSTOM_URL
+  || 'http://127.0.0.1:3000/preset_menu/';//TODO
 // cdns for external data packages
 const presetsCdnUrl = ENV__ID_PRESETS_CDN_URL
   || 'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@{presets_version}/';
@@ -54,6 +56,7 @@ const nominatimApiUrl = ENV__ID_NOMINATIM_API_URL
   || 'https://nominatim.openstreetmap.org/';
 
 export {
+  presetsCustomUrl,
   presetsCdnUrl,
   ociCdnUrl,
   wmfSitematrixCdnUrl,
