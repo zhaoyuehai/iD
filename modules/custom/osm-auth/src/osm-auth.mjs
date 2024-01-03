@@ -204,10 +204,12 @@ export function osmAuth(o) {
       // _getAccessToken(params.code, pkce.code_verifier, accessTokenDone);
       delete window.authComplete;
       //假登录 TODO
-      let username = 'zhaoyuehai5282@163.com'
-      let password = '12345678'
-      token('basic_auth_token',  btoa(`${username}:${password}`));
-      callback(null, oauth);
+      if (params.code) {
+        let username = 'zhaoyuehai5282@163.com'
+        let password = '12345678'
+        token('basic_auth_token', btoa(`${username}:${password}`));
+        callback(null, oauth);
+      }
     };
 
     function accessTokenDone(err, xhr) {
