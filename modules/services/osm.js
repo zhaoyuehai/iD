@@ -2,7 +2,8 @@ import _throttle from 'lodash-es/throttle';
 
 import { dispatch as d3_dispatch } from 'd3-dispatch';
 import { json as d3_json, xml as d3_xml } from 'd3-fetch';
-import { osmAuth } from 'osm-auth';
+// import { osmAuth } from 'osm-auth';
+import { osmAuth } from '../custom/osm-auth/src/osm-auth.mjs';// TODO
 import RBush from 'rbush';
 
 import { JXON } from '../util/jxon';

@@ -7,6 +7,7 @@ import { geoExtent, geoSphericalDistance } from '../geo';
 import { utilQsString, utilStringQs } from '../util';
 import { utilAesDecrypt } from '../util/aes';
 import { IntervalTasksQueue } from '../util/IntervalTasksQueue';
+import { radarBackgroundTemplate } from '../../config/id.js';//TODO
 
 var isRetina = window.devicePixelRatio && window.devicePixelRatio >= 2;
 
@@ -571,6 +572,54 @@ rendererBackgroundSource.Custom = function(template) {
 
     source.label = function() {
         return t.append('background.custom');
+    };
+
+
+    source.imageryUsed = function() {
+        // sanitize personal connection tokens - #6801
+        var cleaned = source.template();
+
+        // from query string parameters
+        if (cleaned.indexOf('?') !== -1) {
+            var parts = cleaned.split('?', 2);
+            var qs = utilStringQs(parts[1]);
+
+            ['access_token', 'connectId', 'token', 'Signature'].forEach(function(param) {
+                if (qs[param]) {
+                    qs[param] = '{apikey}';
+                }
+            });
+            cleaned = parts[0] + '?' + utilQsString(qs, true);  // true = soft encode
+        }
+
+        // from wms/wmts api path parameters
+        cleaned = cleaned
+            .replace(/token\/(\w+)/, 'token/{apikey}')
+            .replace(/key=(\w+)/, 'key={apikey}');
+        return 'Custom (' + cleaned + ' )';
+    };
+
+
+    source.area = function() {
+        return -2;  // sources in background pane are sorted by area
+    };
+
+
+    return source;
+};
+
+//radar point cloud 雷达点云图 TODO
+rendererBackgroundSource.Radar = function (){
+    var id = 'radar_point_cloud';
+
+    var source = rendererBackgroundSource({ id: id, template: radarBackgroundTemplate});
+
+    source.name = function() {
+        return t(`background.${id}`);
+    };
+
+    source.label = function() {
+        return t.append(`background.${id}`);
     };
 
 

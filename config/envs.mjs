@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 const envs = {
-  ENV__ID_PRESETS_CUSTOM_URL: JSON.stringify(process.env.ID_PRESETS_CUSTOM_URL || null),//TODO
+  ENV__ID_CUSTOM_PRESETS_URL: JSON.stringify(process.env.ID_CUSTOM_PRESETS_URL || null),//TODO
+  ENV__ID_RADAR_BACKGROUND_TEMPLATE_URL: JSON.stringify(process.env.ID_RADAR_BACKGROUND_TEMPLATE_URL || null),//TODO
   ENV__ID_PRESETS_CDN_URL: JSON.stringify(process.env.ID_PRESETS_CDN_URL || null),
   ENV__ID_OCI_CDN_URL: JSON.stringify(process.env.ID_OCI_CDN_URL || null),
   ENV__ID_NSI_CDN_URL: JSON.stringify(process.env.ID_NSI_CDN_URL || null),

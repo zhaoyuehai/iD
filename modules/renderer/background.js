@@ -82,6 +82,9 @@ export function rendererBackground(context) {
         const custom = rendererBackgroundSource.Custom(template);
         _imageryIndex.backgrounds.unshift(custom);
 
+        //添加雷达点云图 TODO
+        let radar = rendererBackgroundSource.Radar();
+        _imageryIndex.backgrounds.unshift(radar);
         return _imageryIndex;
       });
   }

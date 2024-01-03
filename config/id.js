@@ -1,7 +1,9 @@
 /* eslint-disable no-undef */
 
-const presetsCustomUrl = ENV__ID_PRESETS_CUSTOM_URL
-  || 'http://127.0.0.1:3000/preset_menu/';//TODO
+const customPresetsUrl = ENV__ID_CUSTOM_PRESETS_URL
+  || 'http://127.0.0.1:3000/preset_menu/';// TODO
+const radarBackgroundTemplate = ENV__ID_RADAR_BACKGROUND_TEMPLATE_URL
+  || 'http://127.0.0.1:9000/tiles/{z}/{x}/{-y}.png';// TODO
 // cdns for external data packages
 const presetsCdnUrl = ENV__ID_PRESETS_CDN_URL
   || 'https://cdn.jsdelivr.net/npm/@openstreetmap/id-tagging-schema@{presets_version}/';
@@ -56,7 +58,8 @@ const nominatimApiUrl = ENV__ID_NOMINATIM_API_URL
   || 'https://nominatim.openstreetmap.org/';
 
 export {
-  presetsCustomUrl,
+  customPresetsUrl,
+  radarBackgroundTemplate,
   presetsCdnUrl,
   ociCdnUrl,
   wmfSitematrixCdnUrl,

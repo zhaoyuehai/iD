@@ -1,6 +1,6 @@
 import parseVersion from 'vparse';
 // import { presetsCdnUrl, ociCdnUrl, wmfSitematrixCdnUrl } from '../../config/id.js';
-import { presetsCustomUrl, ociCdnUrl, wmfSitematrixCdnUrl } from '../../config/id.js';//TODO
+import { customPresetsUrl, ociCdnUrl, wmfSitematrixCdnUrl } from '../../config/id.js';//TODO
 
 import packageJSON from '../../package.json';
 
@@ -34,19 +34,19 @@ export function coreFileFetcher() {
     'oci_features': ociCdnUrl.replace('{version}', ociVersionMinor) + 'dist/featureCollection.min.json',
     'oci_resources': ociCdnUrl.replace('{version}', ociVersionMinor) + 'dist/resources.min.json',
     // 'presets_package': presetsCdnUrl.replace('{presets_version}', presetsVersion) + 'package.json',
-    'presets_package': presetsCustomUrl + 'package.json',//TODO
+    'presets_package': customPresetsUrl + 'package.json',//TODO
     // 'deprecated': presetsCdnUrl + 'dist/deprecated.min.json',
-    'deprecated': presetsCustomUrl + 'deprecated.json',//TODO
+    'deprecated': customPresetsUrl + 'deprecated.json',//TODO
     // 'discarded': presetsCdnUrl + 'dist/discarded.min.json',
-    'discarded': presetsCustomUrl + 'discarded.json',//TODO
+    'discarded': customPresetsUrl + 'discarded.json',//TODO
     // 'preset_categories': presetsCdnUrl + 'dist/preset_categories.min.json',
-    'preset_categories': presetsCustomUrl + 'preset_categories.json',//TODO
+    'preset_categories': customPresetsUrl + 'preset_categories.json',//TODO
     // 'preset_defaults': presetsCdnUrl + 'dist/preset_defaults.min.json',
-    'preset_defaults': presetsCustomUrl + 'preset_defaults.json',//TODO
+    'preset_defaults': customPresetsUrl + 'preset_defaults.json',//TODO
     // 'preset_fields': presetsCdnUrl + 'dist/fields.min.json',
-    'preset_fields': presetsCustomUrl + 'fields.json',//TODO
+    'preset_fields': customPresetsUrl + 'fields.json',//TODO
     // 'preset_presets': presetsCdnUrl + 'dist/presets.min.json',
-    'preset_presets': presetsCustomUrl + 'presets.json',//TODO
+    'preset_presets': customPresetsUrl + 'presets.json',//TODO
     'wmf_sitematrix': wmfSitematrixCdnUrl.replace('{version}', '0.1') + 'wikipedia.min.json'
   };
 
