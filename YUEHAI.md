@@ -8,23 +8,23 @@
     ID_API_CONNECTION_API_URL=http://192.168.x.x:x
     ID_API_CONNECTION_CLIENT_ID=xxxx
     ID_API_CONNECTION_CLIENT_SECRET=xxx
-    ID_PRESETS_CUSTOM_URL=http://192.168.x.x:x/preset_menu/
+    ID_CUSTOM_PRESETS_URL=http://192.168.x.x:x/preset_menu/
     ```
 
-2. 修改/config/envs.mjs和id.js文件，提供环境配置：`presetsCustomUrl`和`apiUrl: ENV__ID_API_CONNECTION_API_URL`
-3. 修改/modules/core/file_fetcher.js和localizer.js文件，替换配置`presetsCdnUrl`为对应的`presetsCustomUrl`。
-4. 修改/scripts/build_data.js文件，替换配置`presetsUrl`为对应的`presetsCustomUrl`。
+2. 修改/config/envs.mjs和id.js文件，提供环境配置：`customPresetsUrl`和`apiUrl: ENV__ID_API_CONNECTION_API_URL`
+3. 修改/modules/core/file_fetcher.js和localizer.js文件，替换配置`presetsCdnUrl`为对应的`customPresetsUrl`。
+4. 修改/scripts/build_data.js文件，替换配置`presetsUrl`为对应的`customPresetsUrl`。
     ```
-    const presetsCustomUrl = process.env.ID_PRESETS_CUSTOM_URL;//TODO
+    const customPresetsUrl = process.env.ID_CUSTOM_PRESETS_URL;//TODO
     ...
      Promise.all([
           // Fetch the icons that are needed by the expected tagging schema version
           // fetchOrRequire(`${presetsUrl}/dist/presets.min.json`),
-          fetchOrRequire(`${presetsCustomUrl}presets.json`),//TODO
+          fetchOrRequire(`${customPresetsUrl}presets.json`),//TODO
           // fetchOrRequire(`${presetsUrl}/dist/preset_categories.min.json`),
-          fetchOrRequire(`${presetsCustomUrl}preset_categories.json`),//TODO
+          fetchOrRequire(`${customPresetsUrl}preset_categories.json`),//TODO
           // fetchOrRequire(`${presetsUrl}/dist/fields.min.json`),
-          fetchOrRequire(`${presetsCustomUrl}fields.json`),//TODO
+          fetchOrRequire(`${customPresetsUrl}fields.json`),//TODO
     ...
     ```
 
@@ -82,7 +82,8 @@ ENV__ID_API_CONNECTION_API_URL is not defined
 
 ## 四、修改成Basic认证
 
-注意：**osm后端支持Basic auth认证**。当前前端项目使用osm-auth库`"osm-auth": "~2.3.0"`来实现编辑器的登录认证功能。osm-auth默认使用的是oauth2认证方式，现将其修改为basic认证方式。
+注意：**osm后端支持Basic auth认证**。当前前端项目使用osm-auth库`"osm-auth": "~2.3.0"`
+来实现编辑器的登录认证功能。osm-auth默认使用的是oauth2认证方式，现将其修改为basic认证方式。
 
 1. 复制需要的osm-auth库文件到/modules/custom/osm-auth目录下。
 2. 调整osm.js文件：将/modules/services/osm.js中导入的osmAuth库替换成自己的。
@@ -128,8 +129,12 @@ ENV__ID_API_CONNECTION_API_URL is not defined
    ...
 
    ```
+
 ## 五、雷达点云图
-在/modules/renderer/background.js中的`export function rendererBackground(context){ ... }`方法中修改添加自定义的雷达点云（Radar Point Cloud）图层：
+
+在/modules/renderer/background.js中的`export function rendererBackground(context){ ... }`方法中修改添加自定义的雷达点云（Radar
+Point Cloud）图层：
+
 ```
 function ensureImageryIndex() {
   return fileFetcher.get('imagery')
@@ -145,7 +150,9 @@ function ensureImageryIndex() {
     });
 }
 ```
+
 在/modules/renderer/background_source.js中提供`rendererBackgroundSource.Radar()`：
+
 ```
 //radar point cloud 雷达点云图 TODO
 rendererBackgroundSource.Radar = function (){
@@ -169,6 +176,7 @@ rendererBackgroundSource.Radar = function (){
 
 }
 ```
+
 在dist/locales目录下的zh-CN.min.json等文件配置多语言："radar_point_cloud":"雷达点云图"
 
 ` ... "background":{"title":"背景","description":"背景设定", ... "custom":"自定义","radar_point_cloud":"雷达点云图","overlays":"叠加图层" ... `
